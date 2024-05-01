@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class Lox {
-
+    //checks whether an error has occurred
     static boolean hadError = false;
     public static void main(String[] args) throws IOException {
         if (args.length > 1){
@@ -22,13 +22,14 @@ public class Lox {
             runPrompt();
         }
     }
-
+    //reads the file and runs it
     private static void runFile(String path) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(path));
         run(new String(bytes, Charset.defaultCharset()));
         if (hadError) System.exit(65);
     }
 
+    //runs the prompt from terminal
     private static void runPrompt() throws IOException {
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(input);
@@ -42,6 +43,7 @@ public class Lox {
         }
     }
 
+    //runs the source code
     private static void run(String source){
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
@@ -51,9 +53,12 @@ public class Lox {
         }
     }
 
+    //error handling
     static void error(int line, String message){
         report(line, "", message);
     }
+
+    //reports the error
     private static void report(int line, String where, String message){
         System.err.println("[line " + line + "] Error" + where + ": " + message);
         hadError = true;
