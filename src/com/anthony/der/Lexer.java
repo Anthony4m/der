@@ -102,6 +102,8 @@ public class Lexer {
                 if (match('/')) {
                     // A comment goes until the end of the line.
                     while (peek() != '\n' && !isAtEnd()) advance();
+                } else if (match('*')) {
+                    blockComment();
                 } else {
                     addToken(SLASH);
                 }
@@ -148,6 +150,29 @@ public class Lexer {
         String value = source.substring(start + 1, current - 1);
         addToken(STRING, value);
     }
+
+    private void blockComment() {
+        boolean inBlockComment = true;
+        while (!isAtEnd()) {
+            char c = advance();
+            if (c == '\n') {
+                line++;
+            } else if (c == '*' && peek() == '/') {
+                advance(); // Consume '/'
+                inBlockComment = false;
+                return;
+            } else if (c == '/' && peek() == '*') {
+                advance(); // Consume '*'
+                advance(); // Consume '/'
+                blockComment(); // Recursively handle nested block comments
+            }
+        }
+        if (inBlockComment) {
+            Der.error(line, "Unterminated block comment.");
+        }
+    }
+
+
 
     //identifies a number token
     private void number() {

@@ -103,4 +103,27 @@ import static org.junit.jupiter.api.Assertions.*;
         assertEquals(TokenType.SEMICOLON, tokens.get(4).type);
     }
 
+     @Test
+     public void testScanTokensWithBlockComments() {
+         Lexer scanner = new Lexer("var x = 5; /* This is a block comment */");
+         List<Token> tokens = scanner.scanTokens();
+
+         assertEquals(6, tokens.size());
+         assertEquals(TokenType.VAR, tokens.get(0).type);
+         assertEquals(TokenType.IDENTIFIER, tokens.get(1).type);
+         assertEquals(TokenType.EQUAL, tokens.get(2).type);
+         assertEquals(TokenType.NUMBER, tokens.get(3).type);
+         assertEquals(TokenType.SEMICOLON, tokens.get(4).type);
+         assertEquals(TokenType.EOF, tokens.get(5).type);
+     }
+
+     @Test
+     public void testScanTokensWithNestedBlockComments() {
+         Lexer scanner = new Lexer("/* This is a /* nested */ block comment */");
+         List<Token> tokens = scanner.scanTokens();
+
+         assertEquals(1, tokens.size());
+         assertEquals(TokenType.EOF, tokens.get(0).type);
+     }
+
 }
