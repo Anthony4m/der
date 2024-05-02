@@ -45,7 +45,7 @@ public class Der {
 
     //runs the source code
     private static void run(String source){
-        Scanner scanner = new Scanner(source);
+        Lexer scanner = new Lexer(source);
         List<Token> tokens = scanner.scanTokens();
 
         for (Token token : tokens){

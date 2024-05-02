@@ -6,10 +6,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ScannerTest {
+ class LexerTest {
     @Test
     public void testScanTokens() {
-        Scanner scanner = new Scanner("var x = 5;");
+        Lexer scanner = new Lexer("var x = 5;");
         List<Token> tokens = scanner.scanTokens();
 
         assertEquals(6, tokens.size());
@@ -23,7 +23,7 @@ class ScannerTest {
 
     @Test
     public void testScanTokensWithStrings() {
-        Scanner scanner = new Scanner("print \"Hello, World!\";");
+        Lexer scanner = new Lexer("print \"Hello, World!\";");
         List<Token> tokens = scanner.scanTokens();
 
         assertEquals(4, tokens.size());
@@ -35,7 +35,7 @@ class ScannerTest {
 
     @Test
     public void testScanTokensWithComments() {
-        Scanner scanner = new Scanner("var x = 5; // This is a comment");
+        Lexer scanner = new Lexer("var x = 5; // This is a comment");
         List<Token> tokens = scanner.scanTokens();
 
         assertEquals(6, tokens.size());
@@ -48,8 +48,8 @@ class ScannerTest {
 
     @Test
     public void testScanTokensWithOperators() {
-        Scanner scanner = new Scanner("a + b * c - 10 / 2;");
-        List<Token> tokens = scanner.scanTokens();
+        Lexer lexer = new Lexer("a + b * c - 10 / 2;");
+        List<Token> tokens = lexer.scanTokens();
 
         assertEquals(11, tokens.size());
         assertEquals(TokenType.IDENTIFIER, tokens.get(0).type);
@@ -66,8 +66,8 @@ class ScannerTest {
 
     @Test
     public void testScanTokensWithKeywords() {
-        Scanner scanner = new Scanner("if (x < 5) { print x; } else { print \"Too large!\"; }");
-        List<Token> tokens = scanner.scanTokens();
+        Lexer lexer = new Lexer("if (x < 5) { print x; } else { print \"Too large!\"; }");
+        List<Token> tokens = lexer.scanTokens();
 
         assertEquals(18, tokens.size());
         assertEquals(TokenType.IF, tokens.get(0).type);
@@ -92,8 +92,8 @@ class ScannerTest {
 
     @Test
     public void testScanTokensWithWhitespaceAndNewlines() {
-        Scanner scanner = new Scanner("var\nx\n=\n10\n;\n");
-        List<Token> tokens = scanner.scanTokens();
+        Lexer lexer = new Lexer("var\nx\n=\n10\n;\n");
+        List<Token> tokens = lexer.scanTokens();
 
         assertEquals(6, tokens.size());
         assertEquals(TokenType.VAR, tokens.get(0).type);

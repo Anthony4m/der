@@ -7,7 +7,7 @@ import java.util.Map;
 
 import static com.anthony.der.TokenType.*;
 
-public class Scanner {
+public class Lexer {
     private final String source;
     private final List<Token> tokens = new ArrayList<>();
     private int start = 0;
@@ -15,7 +15,7 @@ public class Scanner {
     private int line = 1;
 
     //constructor
-    Scanner(String source){
+    Lexer(String source){
         this.source = source;
     }
 
