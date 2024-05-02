@@ -1,11 +1,11 @@
-package com.anthony.lox;
+package com.anthony.der;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.anthony.lox.TokenType.*;
+import static com.anthony.der.TokenType.*;
 
 public class Scanner {
     private final String source;
@@ -126,7 +126,7 @@ public class Scanner {
                 } else if (isAlpha(c)) {
                     identifier();
                 } else {
-                    Lox.error(line, "Unexpected character.");
+                    Der.error(line, "Unexpected character.");
                 }
                 break;
         }
@@ -139,7 +139,7 @@ public class Scanner {
             advance();
         }
         if (isAtEnd()) {
-            Lox.error(line, "Unterminated string.");
+            Der.error(line, "Unterminated string.");
             return;
         }
         // The closing ".

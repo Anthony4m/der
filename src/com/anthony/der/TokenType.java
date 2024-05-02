@@ -1,4 +1,4 @@
-package com.anthony.lox;
+package com.anthony.der;
 
 public enum TokenType {
     // Single-character tokens.

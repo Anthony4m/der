@@ -1,4 +1,4 @@
-package com.anthony.lox;
+package com.anthony.der;
 
 public class Token {
     final TokenType type;
